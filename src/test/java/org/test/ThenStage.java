@@ -13,4 +13,12 @@ public class ThenStage {
     public void the_vending_machine_displays(String display) {
         assertThat(vendingMachine.getDisplay()).isEqualTo(display);
     }
+
+    public void the_coin_return_contains(Coin coin) {
+        assertThat(vendingMachine.getCoinReturn()).contains(coin);
+    }
+
+    public void the_coin_return_isEmpty() {
+        assertThat(vendingMachine.getCoinReturn()).isEmpty();
+    }
 }

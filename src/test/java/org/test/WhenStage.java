@@ -8,7 +8,7 @@ public class WhenStage {
     VendingMachine vendingMachine;
 
 
-    public void the_user_inserts(int value) {
-        vendingMachine.insert(value);
+    public void the_user_inserts(Coin coin) {
+        vendingMachine.insert(coin);
     }
 }
