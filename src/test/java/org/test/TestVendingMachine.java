@@ -26,5 +26,12 @@ public class TestVendingMachine extends ScenarioTest<GivenStage, WhenStage, Then
         then().the_coin_return_isEmpty();
     }
 
+    @Test
+    void test_addition_of_different_coins() {
+        given().a_vending_machine();
+        when().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_inserts(new Coin(CoinType.DIME));
+        then().the_vending_machine_displays("$0.35");
+    }
 
 }

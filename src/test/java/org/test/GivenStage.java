@@ -1,5 +1,6 @@
 package org.test;
 
+import com.tngtech.jgiven.annotation.FillerWord;
 import com.tngtech.jgiven.annotation.ProvidedScenarioState;
 
 public class GivenStage {
@@ -8,7 +9,13 @@ public class GivenStage {
     @ProvidedScenarioState
     VendingMachine vendingMachine;
 
-    public void a_vending_machine() {
+    public GivenStage a_vending_machine() {
         vendingMachine = new VendingMachine();
+        return this;
+    }
+
+    @FillerWord
+    GivenStage and() {
+        return this;
     }
 }

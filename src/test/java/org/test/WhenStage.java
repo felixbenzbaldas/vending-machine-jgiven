@@ -1,6 +1,7 @@
 package org.test;
 
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
+import com.tngtech.jgiven.annotation.FillerWord;
 
 public class WhenStage {
 
@@ -8,7 +9,13 @@ public class WhenStage {
     VendingMachine vendingMachine;
 
 
-    public void the_user_inserts(Coin coin) {
+    public WhenStage the_user_inserts(Coin coin) {
         vendingMachine.insert(coin);
+        return this;
+    }
+
+    @FillerWord
+    WhenStage and() {
+        return this;
     }
 }
