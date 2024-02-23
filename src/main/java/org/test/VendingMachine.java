@@ -10,6 +10,11 @@ public class VendingMachine {
     State state = State.DEFAULT;
     Set<Coin> coinReturn = new HashSet<>();
     Product selectedProduct;
+    private Display display;
+
+    VendingMachine(Display display) {
+        this.display = display;
+    }
 
     public String getDisplay() {
         if (state == State.SHOW_PRICE) {
@@ -27,6 +32,7 @@ public class VendingMachine {
             return;
         }
         this.value += coin.getValue();
+        this.updateDisplay();
     }
 
     public Set<Coin> getCoinReturn() {
@@ -38,5 +44,9 @@ public class VendingMachine {
             state = State.SHOW_PRICE;
             selectedProduct = product;
         }
+    }
+
+    private void updateDisplay() {
+        display.show(getDisplay());
     }
 }

@@ -48,7 +48,11 @@ public class TestVendingMachine extends ScenarioTest<GivenStage, WhenStage, Then
         then().the_vending_machine_displays("PRICE $1.00");
     }
 
-
-
+    @Test
+    void should_update_Display2() {
+        given().a_vending_machine();
+        when().the_user_inserts(new Coin(CoinType.NICKEL));
+        then().the_display_shows("$0.05");
+    }
 
 }
