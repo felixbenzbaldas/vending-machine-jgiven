@@ -6,6 +6,12 @@ import org.junit.jupiter.api.Test;
 public class TestVendingMachine extends ScenarioTest<GivenStage, WhenStage, ThenStage> {
 
     @Test
+    void test_initial_display() {
+        given().a_vending_machine();
+        then().the_vending_machine_displays("INSERT COIN");
+    }
+
+    @Test
     void should_update_display() {
         given().a_vending_machine();
         when().the_user_inserts(new Coin(CoinType.NICKEL));

@@ -10,6 +10,9 @@ public class VendingMachine {
     Set<Coin> coinReturn = new HashSet<>();
 
     public String getDisplay() {
+        if (value == 0) {
+            return "INSERT COIN";
+        }
         return NumberFormat.getCurrencyInstance(Locale.US).format(value / 100.0);
     }
 
