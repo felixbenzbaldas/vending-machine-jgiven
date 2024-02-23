@@ -16,7 +16,7 @@ public class VendingMachine {
         this.display = display;
     }
 
-    public String getDisplay() {
+    public String createCurrentDisplayText() {
         if (state == State.SHOW_PRICE) {
             return "PRICE " + NumberFormat.getCurrencyInstance(Locale.US).format(selectedProduct.getPrice() / 100.0);
         }
@@ -47,6 +47,6 @@ public class VendingMachine {
     }
 
     private void updateDisplay() {
-        display.show(getDisplay());
+        display.show(createCurrentDisplayText());
     }
 }

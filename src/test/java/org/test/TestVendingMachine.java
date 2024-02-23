@@ -8,14 +8,14 @@ public class TestVendingMachine extends ScenarioTest<GivenStage, WhenStage, Then
     @Test
     void test_initial_display() {
         given().a_vending_machine();
-        then().the_vending_machine_displays("INSERT COIN");
+        then().the_display_text_is("INSERT COIN");
     }
 
     @Test
-    void should_update_display() {
+    void test_display_text_after_inserting_a_coin() {
         given().a_vending_machine();
         when().the_user_inserts(new Coin(CoinType.NICKEL));
-        then().the_vending_machine_displays("$0.05");
+        then().the_display_text_is("$0.05");
     }
 
     @Test
@@ -37,7 +37,7 @@ public class TestVendingMachine extends ScenarioTest<GivenStage, WhenStage, Then
         given().a_vending_machine();
         when().the_user_inserts(new Coin(CoinType.QUARTER))
                 .and().the_user_inserts(new Coin(CoinType.DIME));
-        then().the_vending_machine_displays("$0.35");
+        then().the_display_text_is("$0.35");
     }
 
     @Test
@@ -45,14 +45,14 @@ public class TestVendingMachine extends ScenarioTest<GivenStage, WhenStage, Then
         given().a_vending_machine();
         when().the_user_inserts(new Coin(CoinType.QUARTER))
                 .and().the_user_presses_the_button_for(Product.COLA);
-        then().the_vending_machine_displays("PRICE $1.00");
+        then().the_display_text_is("PRICE $1.00");
     }
 
     @Test
-    void should_update_Display2() {
+    void should_update_display() {
         given().a_vending_machine();
         when().the_user_inserts(new Coin(CoinType.NICKEL));
-        then().the_display_shows("$0.05");
+        then().the_display_text_is_set_to("$0.05");
     }
 
 }

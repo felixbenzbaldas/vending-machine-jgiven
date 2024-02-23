@@ -19,7 +19,7 @@ public class Coin {
 
     @Override
     public String toString() {
-        return coinType.toString();
+        return "a coin of type " + coinType.toString();
     }
 
     @Override
