@@ -18,4 +18,8 @@ public class WhenStage {
     WhenStage and() {
         return this;
     }
+
+    public void the_user_presses_the_button_for(Product product) {
+        vendingMachine.selectProduct(product);
+    }
 }

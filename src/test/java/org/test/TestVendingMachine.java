@@ -40,4 +40,15 @@ public class TestVendingMachine extends ScenarioTest<GivenStage, WhenStage, Then
         then().the_vending_machine_displays("$0.35");
     }
 
+    @Test
+    void test_not_enough_money() {
+        given().a_vending_machine();
+        when().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_presses_the_button_for(Product.COLA);
+        then().the_vending_machine_displays("PRICE $1.00");
+    }
+
+
+
+
 }

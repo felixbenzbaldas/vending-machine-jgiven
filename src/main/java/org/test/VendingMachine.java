@@ -7,9 +7,14 @@ import java.util.Set;
 
 public class VendingMachine {
     int value = 0;
+    State state = State.DEFAULT;
     Set<Coin> coinReturn = new HashSet<>();
+    Product selectedProduct;
 
     public String getDisplay() {
+        if (state == State.SHOW_PRICE) {
+            return "PRICE " + NumberFormat.getCurrencyInstance(Locale.US).format(selectedProduct.getPrice() / 100.0);
+        }
         if (value == 0) {
             return "INSERT COIN";
         }
@@ -26,5 +31,12 @@ public class VendingMachine {
 
     public Set<Coin> getCoinReturn() {
         return coinReturn;
+    }
+
+    public void selectProduct(Product product) {
+        if (value < product.getPrice()) {
+            state = State.SHOW_PRICE;
+            selectedProduct = product;
+        }
     }
 }
