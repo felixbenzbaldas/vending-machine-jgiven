@@ -22,14 +22,14 @@ public class TestVendingMachine extends ScenarioTest<GivenStage, WhenStage, Then
     void should_reject_invalid_coins() {
         given().a_vending_machine();
         when().the_user_inserts(new Coin(CoinType.PENNY));
-        then().the_coin_return_contains(new Coin(CoinType.PENNY));
+        then().$_is_added_to_the_coin_return(new Coin(CoinType.PENNY));
     }
 
     @Test
-    void test_coin_return_stays_empty() {
+    void test_coin_return_after_inserting_valid_coin() {
         given().a_vending_machine();
         when().the_user_inserts(new Coin(CoinType.NICKEL));
-        then().the_coin_return_isEmpty();
+        then().the_vending_machine_will_return_no_coin();
     }
 
     @Test

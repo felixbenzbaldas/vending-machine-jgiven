@@ -1,19 +1,19 @@
 package org.test;
 
 import java.text.NumberFormat;
-import java.util.HashSet;
 import java.util.Locale;
-import java.util.Set;
 
 public class VendingMachine {
     int value = 0;
     State state = State.DEFAULT;
-    Set<Coin> coinReturn = new HashSet<>();
     Product selectedProduct;
     private Display display;
 
-    VendingMachine(Display display) {
+    private CoinReturn coinReturn;
+
+    VendingMachine(Display display, CoinReturn coinReturn) {
         this.display = display;
+        this.coinReturn = coinReturn;
     }
 
     public String createCurrentDisplayText() {
@@ -33,10 +33,6 @@ public class VendingMachine {
         }
         this.value += coin.getValue();
         this.updateDisplay();
-    }
-
-    public Set<Coin> getCoinReturn() {
-        return coinReturn;
     }
 
     public void selectProduct(Product product) {
