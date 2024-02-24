@@ -78,7 +78,7 @@ public class TestVendingMachine extends ScenarioTest<GivenStage, WhenStage, Then
     }
 
     @Test
-    void should_return_rest() {
+    void should_return_rest() { // TODO: only return money when user presses the return coins button
         given().a_vending_machine();
         when().the_user_inserts(new Coin(CoinType.QUARTER))
                 .and().the_user_inserts(new Coin(CoinType.QUARTER))
