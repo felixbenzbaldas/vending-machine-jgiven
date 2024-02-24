@@ -44,6 +44,7 @@ public class VendingMachine {
             selectedProduct = product;
         } else {
             shelf.addProduct(product);
+            display.show("THANK YOU");
         }
     }
 

@@ -19,6 +19,13 @@ public class TestVendingMachine extends ScenarioTest<GivenStage, WhenStage, Then
     }
 
     @Test
+    void should_update_display() {
+        given().a_vending_machine();
+        when().the_user_inserts(new Coin(CoinType.NICKEL));
+        then().the_display_text_is_set_to("$0.05");
+    }
+
+    @Test
     void should_reject_invalid_coins() {
         given().a_vending_machine();
         when().the_user_inserts(new Coin(CoinType.PENNY));
@@ -60,10 +67,13 @@ public class TestVendingMachine extends ScenarioTest<GivenStage, WhenStage, Then
     }
 
     @Test
-    void should_update_display() {
+    void should_display_THANK_YOU_after_purchase() {
         given().a_vending_machine();
-        when().the_user_inserts(new Coin(CoinType.NICKEL));
-        then().the_display_text_is_set_to("$0.05");
+        when().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_presses_the_button_for(Product.COLA);
+        then().the_display_text_is_set_to("THANK YOU");
     }
-
 }
