@@ -1,7 +1,10 @@
 package org.test;
 
 import java.text.NumberFormat;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public class VendingMachine {
     int value = 0;
@@ -45,10 +48,24 @@ public class VendingMachine {
         } else {
             shelf.addProduct(product);
             display.show("THANK YOU");
+            int rest = value - product.getPrice();
+            getCoinsForValue(rest).forEach(coinReturn::add);
         }
     }
 
     private void updateDisplay() {
         display.show(createCurrentDisplayText());
+    }
+
+    private Set<Coin> getCoinsForValue(int value) {
+        Set<Coin> coins = new HashSet<>();
+        List<CoinType> coinTypes = List.of(CoinType.QUARTER, CoinType.DIME, CoinType.NICKEL);
+        for (CoinType coinType : coinTypes) {
+            while (value >= coinType.getValue()) {
+                coins.add(new Coin(coinType));
+                value -= coinType.getValue();
+            }
+        }
+        return coins;
     }
 }

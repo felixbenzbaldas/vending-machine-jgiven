@@ -76,4 +76,17 @@ public class TestVendingMachine extends ScenarioTest<GivenStage, WhenStage, Then
                 .and().the_user_presses_the_button_for(Product.COLA);
         then().the_display_text_is_set_to("THANK YOU");
     }
+
+    @Test
+    void should_return_rest() {
+        given().a_vending_machine();
+        when().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_inserts(new Coin(CoinType.DIME))
+                .and().the_user_inserts(new Coin(CoinType.DIME))
+                .and().the_user_inserts(new Coin(CoinType.DIME))
+                .and().the_user_presses_the_button_for(Product.COLA);
+        then().$_is_added_to_the_coin_return(new Coin(CoinType.NICKEL));
+    }
 }
