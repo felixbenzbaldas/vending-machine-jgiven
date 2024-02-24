@@ -7,7 +7,7 @@ import java.util.Locale;
 import java.util.Set;
 
 public class VendingMachine {
-    int value = 0;
+    int valueInserted = 0;
     State state = State.DEFAULT;
     Product selectedProduct;
     private Display display;
@@ -26,10 +26,10 @@ public class VendingMachine {
         if (state == State.SHOW_PRICE) {
             return "PRICE " + NumberFormat.getCurrencyInstance(Locale.US).format(selectedProduct.getPrice() / 100.0);
         }
-        if (value == 0) {
+        if (valueInserted == 0) {
             return "INSERT COIN";
         }
-        return NumberFormat.getCurrencyInstance(Locale.US).format(value / 100.0);
+        return NumberFormat.getCurrencyInstance(Locale.US).format(valueInserted / 100.0);
     }
 
     public void insert(Coin coin) {
@@ -37,18 +37,18 @@ public class VendingMachine {
             coinReturn.add(coin);
             return;
         }
-        this.value += coin.getValue();
+        this.valueInserted += coin.getValue();
         this.updateDisplay();
     }
 
     public void selectProduct(Product product) {
-        if (value < product.getPrice()) {
+        if (valueInserted < product.getPrice()) {
             state = State.SHOW_PRICE;
             selectedProduct = product;
         } else {
             shelf.addProduct(product);
             display.show("THANK YOU");
-            int rest = value - product.getPrice();
+            int rest = valueInserted - product.getPrice();
             getCoinsForValue(rest).forEach(coinReturn::add);
         }
     }
@@ -59,8 +59,8 @@ public class VendingMachine {
 
     private Set<Coin> getCoinsForValue(int value) {
         Set<Coin> coins = new HashSet<>();
-        List<CoinType> coinTypes = List.of(CoinType.QUARTER, CoinType.DIME, CoinType.NICKEL);
-        for (CoinType coinType : coinTypes) {
+        List<CoinType> coinTypesInDescendingOrder = List.of(CoinType.QUARTER, CoinType.DIME, CoinType.NICKEL);
+        for (CoinType coinType : coinTypesInDescendingOrder) {
             while (value >= coinType.getValue()) {
                 coins.add(new Coin(coinType));
                 value -= coinType.getValue();
