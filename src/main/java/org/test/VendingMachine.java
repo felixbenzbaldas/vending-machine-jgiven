@@ -16,10 +16,13 @@ public class VendingMachine {
 
     private Shelf shelf;
 
-    VendingMachine(Display display, CoinReturn coinReturn, Shelf shelf) {
+    private Timer timer;
+
+    VendingMachine(Display display, CoinReturn coinReturn, Shelf shelf, Timer timer) {
         this.display = display;
         this.coinReturn = coinReturn;
         this.shelf = shelf;
+        this.timer = timer;
     }
 
     public String createCurrentDisplayText() {
@@ -50,6 +53,12 @@ public class VendingMachine {
             display.show("THANK YOU");
             int rest = valueInserted - product.getPrice();
             getCoinsForValue(rest).forEach(coinReturn::add);
+            state = State.SHOW_THANK_YOU;
+            timer.runLater(() -> {
+                    valueInserted = 0;
+                    updateDisplay();
+                    state = State.DEFAULT;
+                }, 5000);
         }
     }
 

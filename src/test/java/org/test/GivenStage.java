@@ -19,8 +19,11 @@ public class GivenStage {
     @ProvidedScenarioState
     Shelf shelf = mock(Shelf.class);
 
+    @ProvidedScenarioState
+    Timer timer = mock(Timer.class);
+
     public GivenStage a_vending_machine() {
-        vendingMachine = new VendingMachine(display, coinReturn, shelf);
+        vendingMachine = new VendingMachine(display, coinReturn, shelf, timer);
         return this;
     }
 
