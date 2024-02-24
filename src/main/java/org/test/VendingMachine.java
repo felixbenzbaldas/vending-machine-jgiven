@@ -11,9 +11,12 @@ public class VendingMachine {
 
     private CoinReturn coinReturn;
 
-    VendingMachine(Display display, CoinReturn coinReturn) {
+    private Shelf shelf;
+
+    VendingMachine(Display display, CoinReturn coinReturn, Shelf shelf) {
         this.display = display;
         this.coinReturn = coinReturn;
+        this.shelf = shelf;
     }
 
     public String createCurrentDisplayText() {
@@ -39,6 +42,8 @@ public class VendingMachine {
         if (value < product.getPrice()) {
             state = State.SHOW_PRICE;
             selectedProduct = product;
+        } else {
+            shelf.addProduct(product);
         }
     }
 

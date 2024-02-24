@@ -16,6 +16,9 @@ public class ThenStage {
     @ExpectedScenarioState
     CoinReturn coinReturn;
 
+    @ExpectedScenarioState
+    Shelf shelf;
+
     public void the_display_text_is(String display) {
         assertThat(vendingMachine.createCurrentDisplayText()).isEqualTo(display);
     }
@@ -30,5 +33,9 @@ public class ThenStage {
 
     public void the_display_text_is_set_to(String text) {
         verify(display).show(text);
+    }
+
+    public void $_is_added_to_the_shelf(Product product) {
+        verify(shelf).addProduct(product);
     }
 }

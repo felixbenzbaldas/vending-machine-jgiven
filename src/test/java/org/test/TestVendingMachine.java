@@ -49,6 +49,17 @@ public class TestVendingMachine extends ScenarioTest<GivenStage, WhenStage, Then
     }
 
     @Test
+    void test_add_product_to_shelf() {
+        given().a_vending_machine();
+        when().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_presses_the_button_for(Product.COLA);
+        then().$_is_added_to_the_shelf(Product.COLA);
+    }
+
+    @Test
     void should_update_display() {
         given().a_vending_machine();
         when().the_user_inserts(new Coin(CoinType.NICKEL));
