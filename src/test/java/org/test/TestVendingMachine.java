@@ -91,6 +91,18 @@ public class TestVendingMachine extends ScenarioTest<GivenStage, WhenStage, Then
     }
 
     @Test
+    void test_4999_milliseconds_after_purchase() {
+        given().a_vending_machine();
+        when().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_inserts(new Coin(CoinType.QUARTER))
+                .and().the_user_presses_the_button_for(Product.COLA)
+                .and().$_milliseconds_passed(4999);
+        then().the_display_text_is_set_to("THANK YOU");
+    }
+
+    @Test
     void test_five_seconds_after_purchase() {
         given().a_vending_machine();
         when().the_user_inserts(new Coin(CoinType.QUARTER))
@@ -98,7 +110,7 @@ public class TestVendingMachine extends ScenarioTest<GivenStage, WhenStage, Then
                 .and().the_user_inserts(new Coin(CoinType.QUARTER))
                 .and().the_user_inserts(new Coin(CoinType.QUARTER))
                 .and().the_user_presses_the_button_for(Product.COLA)
-                .and().five_seconds_pass();
+                .and().$_milliseconds_passed(5000);
         then().the_display_text_is_set_to("INSERT COIN");
     }
 }

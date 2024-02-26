@@ -1,6 +1,7 @@
 package org.test;
 
 import com.tngtech.jgiven.annotation.ExpectedScenarioState;
+import org.mockito.ArgumentCaptor;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -32,7 +33,9 @@ public class ThenStage {
     }
 
     public void the_display_text_is_set_to(String text) {
-        verify(display).show(text);
+        ArgumentCaptor<String> textCaptor = ArgumentCaptor.forClass(String.class);
+        verify(display, atLeastOnce()).show(textCaptor.capture());
+        assertThat(textCaptor.getValue()).isEqualTo(text); // getValue() gets the last value captured
     }
 
     public void $_is_added_to_the_shelf(Product product) {

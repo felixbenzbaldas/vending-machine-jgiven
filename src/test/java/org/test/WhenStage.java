@@ -4,7 +4,6 @@ import com.tngtech.jgiven.annotation.ExpectedScenarioState;
 import com.tngtech.jgiven.annotation.FillerWord;
 import org.mockito.ArgumentCaptor;
 
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 
 public class WhenStage {
@@ -31,9 +30,14 @@ public class WhenStage {
         return this;
     }
 
-    public void five_seconds_pass() {
-        ArgumentCaptor<Runnable> argument = ArgumentCaptor.forClass(Runnable.class);
-        verify(timer).runLater(argument.capture(), eq(5000L));
-        argument.getValue().run();
+    public void $_milliseconds_passed(long milliseconds) {
+        ArgumentCaptor<Runnable> runnableCapture = ArgumentCaptor.forClass(Runnable.class);
+        ArgumentCaptor<Long> timeCapture = ArgumentCaptor.forClass(Long.class);
+        verify(timer).runLater(runnableCapture.capture(), timeCapture.capture());
+        for (int i = 0; i < runnableCapture.getAllValues().size(); i++) {
+            if (milliseconds >= timeCapture.getAllValues().get(i)) {
+                runnableCapture.getAllValues().get(i).run();
+            }
+        }
     }
 }
